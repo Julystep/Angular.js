@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+    </head>
+    <body>
+        <!--
+            ng-controller='myCtrl' 用于定义一个控制器
+            myCtrl是一个JavaScript函数
+            使用$scope保存模型中的对象，相当于作用域，可以在作用域中添加各种属性值
+        -->
+        <div ng-app="myApp">  
+            <div ng-controller="myCtrl">
+                <input type="text" ng-model="firstname"><br>
+                <input type="text" ng-model="lastname"><br>
+                姓名{{ firstname + lastname }}<br>
+                别称{{ others() }}
+            </div>
+
+            <div ng-controller="myCtrl2">
+                <ul>
+                    <li ng-repeat="x in names">
+                        {{ x.name + ', ' + x.country}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    <script>
+        /**
+        * 控制器可以在外部定义
+        */
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope){
+            $scope.firstname = 'john';
+            $scope.lastname = 'Doe';
+            $scope.nickname = 'pig';
+            $scope.others = () => {
+                return $scope.lastname + $scope.nickname;       
+            }
+        });
+        app.controller('myCtrl2', function($scope){
+            $scope.names = [
+                {name : 'java', country : 'norway'},
+                {name : 'python', country : 'China'}
+            ]
+        })
+    </script>
+</html>

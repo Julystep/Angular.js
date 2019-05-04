@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div ng-app=""  ng-init="mySwitch=false">
+        <div>
+            <p>
+                <button ng-disabled="mySwitch">点我!</button>
+            </p>
+            <p>
+                <input type="checkbox" ng-model="mySwitch"/>
+            </p>
+            <p>
+                {{ mySwitch }}
+            </p>
+            <input ng-show='true' value="我是可见的" readonly>
+            <input ng-show='false' value="我是不可见的" readonly>
+            <input ng-hide='true' value="我是不可见的一个" readonly>
+            <input ng-hide='false' value="我是可见的一个" readonly>
+        </div>
+    </div>
+</body>
+<script>
+    
+</script>
+</html>

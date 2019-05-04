@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+    </head>
+    <body> 
+        <div ng-app="myApp">
+            <div ng-controller="myCtrl">
+                <p>当前界面的url</p>
+                <h3>{{ myUrl }}</h3>
+                <h1>{{ name }}</h1>
+            </div>
+            <div ng-controller='myCtrl2'>
+                <p>{{ myHeader}} </p>
+            </div>
+            <div ng-controller="myCtrl3">
+                <p>{{ time }}</p>
+            </div>
+            <div ng-controller="myCtrl4">
+                <p>{{ l }}</p>
+            </div>
+        </div>
+    </body>
+    <script>
+        app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope, $location){     //$location的作用是可以返回当前的URL地址
+            $scope.myUrl = $location.absUrl();
+            $scope.name = 'java';
+        })
+        
+        app.controller('myCtrl2', function($scope, $timeout){
+            $scope.myHeader = 'hello world';
+            $timeout( function() {
+                $scope.myHeader = 'how are you today';
+            }, 2000)
+        })
+        app.controller('myCtrl3', function($scope, $interval){
+            $scope.time = new Date().toLocaleTimeString();
+            $interval(function(){
+                $scope.time = new Date().toLocaleTimeString();
+            }, 1000)
+        })
+        /**
+         * 自定义的服务
+         * */
+        app.service('l', function(){
+            this.myFunc = function(x){
+                return x.toString(2);
+            }
+        })
+        app.controller('myCtrl4', function($scope, l){
+            $scope.l = l.myFunc(30);
+        })
+    </script>
+</html>

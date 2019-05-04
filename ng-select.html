@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div ng-app="myApp">
+        <div ng-controller='myCtrl'>
+            <select ng-model="names[0]" ng-options="x for x in names">
+
+            </select>
+        </div>
+        <div ng-controller='myCtrl'>
+            <select>
+                <option ng-repeat="x in names">{{ x }}</option>
+            </select>
+        </div>
+        <div ng-controller='myCtrl2'>
+            <select ng-model="selectSites" ng-options="x for (x, y) in sites"></select>
+            <h3>{{ selectSites }}</h3>
+        </div>
+        <div ng-controller='myCtrl3'>
+            <select ng-model="selectSites" ng-options="y.brand for (x, y) in sites"></select>
+            <h3>{{ selectSites.model }}</h3>
+            <h2>{{ selectSites.color }}</h2>
+        </div>
+        <div ng-controller='myCtrl3'>
+                <select ng-model="selectSites" ng-options="x for (x, y) in sites"></select>
+                <h3>{{ selectSites}}</h3>
+            </div>
+    </div>
+</body>
+<script>
+    /**
+     * ng-options选择的对象
+     * ng-repeat选择的是值，作用的范围没有ng-options更加明显
+     * */
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope){
+        $scope.names = ["Google", "Runoob", "TaoBao"];
+    })
+    app.controller('myCtrl2', function($scope){
+        $scope.sites = {
+            sites01 : 'Google',
+            sites02 : 'Runoob',
+            sites03 : 'Taobao'
+        }
+    })
+    app.controller('myCtrl3', function($scope){
+        $scope.sites = {
+            sites01 : {brand : 'Ford', model : 'Mustang', color : 'red'},
+            sites02 : {brand : 'Fiat', model : '500', color : 'wihte'},
+            sites03 : {brand : 'Volvo', model : 'Xc90', color : 'black'}
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>过滤器</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+    </head>
+    <body>
+        <div ng-app='myApp'>
+            <div ng-controller="personCtrl">
+                <p>昵称为{{ firstName | lowercase}}</p>     
+                <p>姓名为{{ lastName | uppercase }}</p>
+                <p>偷的钱的数量{{ money | currency}}</p>
+            </div>
+            <div ng-controller="Ctrl2">
+                <p>输入过滤</p>
+                <input type="text" ng-model="test" />
+                <ul>
+                    <li ng-repeat="x in names |filter:test|  orderBy:'country'">
+                        {{ x.name + '  ' + x.country}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('personCtrl', function($scope){
+            $scope.firstName = 'CCCCC';
+            $scope.lastName = 'java';
+            $scope.money = 1000;
+        })
+        app.controller('Ctrl2', function($scope){
+            $scope.names  = [
+                {name : 'java', country : 'norway'},
+                {name : 'python', country : 'china'}
+            ]
+        })
+    </script>
+</html>
