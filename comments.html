@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+    </head>
+    <body>
+        <div ng-app="myApp" >
+        <div ng-controller="myCtrl">
+            <button ng-click="count = count + 1">点击!</button>
+            <p>{{ count }}</p>
+        </div>
+        <div ng-controller="myCtrl2">
+            <button ng-click="toggle()">点击出现或消失</button>
+            <div ng-show="test">
+                <input ng-model="firstName"  />
+            </div>
+        </div>
+        <div ng-controller="myCtrl3">
+            <input type="radio" ng-model="myVar" value="dog">
+            <input type="radio" ng-model="myVar" value="pig">
+            <p>{{ myVar }}</p>
+        </div>
+        </div>
+    </body>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller("myCtrl", function($scope){
+            $scope.count = 0;
+        })
+
+        app.controller('myCtrl2', function($scope){
+            $scope.firstName = 'java';
+            $scope.test = true;
+            $scope.toggle = function(){
+                $scope.test = !$scope.test;
+            }
+        })
+
+        app.controller('myCtrl3', function($scope){
+            $scope.myVar = 'pig';
+        })
+    </script>
+</html>
