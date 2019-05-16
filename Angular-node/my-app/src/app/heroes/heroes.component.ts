@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from './hero';
-import { Heroes } from './mock-heroes';
+import { HeroService } from '../hero.service';
 
 
 @Component({
@@ -10,20 +10,20 @@ import { Heroes } from './mock-heroes';
 })
 export class HeroesComponent implements OnInit {
 
-  heroes = Heroes;
+  heroes: Hero[];
   selectedHero: Hero;
-  constructor() { }
+  constructor(private heroService: HeroService) { }
 
     /**
      * 会在所有初始化完成后调用
      * 会处理所有的附加的初始化任务
      */
   ngOnInit() {
+    this.getHeroes();
   }
 
-  onSelect(hero: Hero): void {
-    console.log(this);
-    this.selectedHero = hero;
+  getHeroes(): void {
+    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
   }
 
 }
