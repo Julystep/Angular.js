@@ -1,21 +1,40 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+    <h1>杂乱无章的练习</h1>
+    <p>
+        <img [src]="path"/>
+        
+        <!--被大多数人称作规范形式-->
+        <img bind-src=path/>
+        <button (click)="getHero()">点击出现</button>
+        <!--#phone通常用来引用dom元素, 前缀#可以用ref代替-->
+        <input #phone placeholder="phone number" />
+        <button (click)="callPhone(phone.value)">Call</button>
+    </p>
+    <app-new [new]='path'></app-new>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
-<router-outlet></router-outlet>
+<div class="container">
+    <h1>用户输入表单</h1>
+    <button (click)='onClickMe()'>点击</button>
+    <p>{{ clickMessage }}</p>
+    <!--传入event很便捷，但是并不是健康的做法，因为组件和视图未能实现相互分离的原则-->
+    <input (keyup)='onKey($event)' placeholder="用event"/>
+    <p>{{ values }}</p>
+    <!--模板完全自给自足，没有传到组件中去，组件也没有做任何事情-->
+    <input #box (keyup)='0' placeholder="用模板引用变量"/>
+    <p>{{ box.value }}</p>
+    <input #box1 (keyup)='onKey1(box1.value)' placeholder="用模板引用变量的值作为参数"/>
+    <p>{{ values1 }}</p>
+    <input #box2 (keyup.enter)='onEnter(box2.value)' (blur)='update(box2.value)' placeholder="用enter操作和blur协同操作">
+    <p>{{ values2 }}</p>
+</div>
+
+<div class="container">
+    <h1>添加英雄</h1>
+    <input #hero (keyup.enter)='onEnter1(hero.value)' (blur)='onEnter1(hero.value); hero.value="" '/>
+    <button (click)='onEnter1(hero.value)'>添加英雄</button>
+    <app-new [hero]="hero" [power]="power"></app-new>
+    <ul>
+        <li *ngFor="let hero of Heroes">{{ hero }}</li>
+    </ul>
+</div>
