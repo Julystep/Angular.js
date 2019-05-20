@@ -1,5 +1,7 @@
 import { Component, Input, Output } from '@angular/core';
 import { Hero } from './hero';
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { NewComponent } from './new/new.component';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +9,7 @@ import { Hero } from './hero';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
  /**
   * 变量初始化
   */
@@ -24,6 +26,11 @@ export class AppComponent {
   values: string;
   values1: string;
   values2: string;
+  major = 1;
+  minor = 23;
+  agreed = 0;
+  disagreed = 0;
+  voters = ['mr. IQ', 'mr. unverse', 'binjn'];
 
   /**
    * 利用*ngFor来显示heroes的每一段
@@ -32,6 +39,10 @@ export class AppComponent {
   Animals = ['cat', 'dog', 'bird', 'fish'];
 
   Heroes = ['windstrom', 'airman', 'aotuman', 'greaters'];
+
+  News = ['java', 'c++', 'javascript'];
+
+  Names = ['Io . oo', '    ', '  bodsd  '];
   /**
    * 采用外界的hero模板
    * 在内部赋予其相应的值
@@ -86,6 +97,16 @@ export class AppComponent {
   update(value){
     this.values2 = value;
   }
+  newMinor(){
+    this.minor++;
+  }
+  newMajor(){
+    this.major++;
+    this.minor = 0;
+  }
+  onVoted(agreed: boolean){
+    agreed ? this.agreed++ : this.disagreed++;
+  }
   /**
    * 元素会通过Angular插值使用，插值使用的方法为{{}}
    */
@@ -115,7 +136,25 @@ export class AppComponent {
     this.values2 = '';
   }
 
-  
+  @ViewChild(NewComponent)
+  private timerComponent: NewComponent;
+  /**
+   * 先将父组件中的组件初设0值
+   */
+  seconds(){
+    return 0;
+  }
+  /**
+   * 在等待一个周期之后，改变seconds方法
+   */
+  ngAfterViewInit(){
+    setTimeout( () => this.seconds = () => this.timerComponent.seconds, 0);
+  }
+  /**
+   * 绑定子组件的方法
+   */
+  start() { this.timerComponent.start(); }
+  stop() { this.timerComponent.stop(); }
 
 }
 

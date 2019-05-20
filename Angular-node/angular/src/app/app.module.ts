@@ -9,7 +9,7 @@ import { NewComponent } from './new/new.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NewComponent
+    NewComponent,
   ],
   imports: [
     BrowserModule,

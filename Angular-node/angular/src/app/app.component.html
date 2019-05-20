@@ -1,12 +1,13 @@
+<!--
 <div class="container">
     <h1>杂乱无章的练习</h1>
     <p>
         <img [src]="path"/>
         
-        <!--被大多数人称作规范形式-->
+      
         <img bind-src=path/>
         <button (click)="getHero()">点击出现</button>
-        <!--#phone通常用来引用dom元素, 前缀#可以用ref代替-->
+        
         <input #phone placeholder="phone number" />
         <button (click)="callPhone(phone.value)">Call</button>
     </p>
@@ -17,10 +18,10 @@
     <h1>用户输入表单</h1>
     <button (click)='onClickMe()'>点击</button>
     <p>{{ clickMessage }}</p>
-    <!--传入event很便捷，但是并不是健康的做法，因为组件和视图未能实现相互分离的原则-->
+    
     <input (keyup)='onKey($event)' placeholder="用event"/>
     <p>{{ values }}</p>
-    <!--模板完全自给自足，没有传到组件中去，组件也没有做任何事情-->
+    
     <input #box (keyup)='0' placeholder="用模板引用变量"/>
     <p>{{ box.value }}</p>
     <input #box1 (keyup)='onKey1(box1.value)' placeholder="用模板引用变量的值作为参数"/>
@@ -29,12 +30,57 @@
     <p>{{ values2 }}</p>
 </div>
 
+-->
+
+<!--
 <div class="container">
     <h1>添加英雄</h1>
     <input #hero (keyup.enter)='onEnter1(hero.value)' (blur)='onEnter1(hero.value); hero.value="" '/>
     <button (click)='onEnter1(hero.value)'>添加英雄</button>
-    <app-new [hero]="hero" [power]="power"></app-new>
     <ul>
         <li *ngFor="let hero of Heroes">{{ hero }}</li>
     </ul>
+</div>
+
+<div class="container">
+    <app-new *ngFor='let hero of Heroes' [hero]="hero" [MyHero]="myHero"></app-new>
+</div>
+
+<div class="container">
+    <app-new *ngFor='let name of Names' [name]='name'></app-new>
+</div>
+
+<div class="container">
+    <h2>Source code version</h2>
+    <button (click)='newMinor()'>New minor version</button>
+    <button (click)='newMajor()'>New major version</button>
+    <app-new [minor]='minor' [major]='major'></app-new>
+</div>
+-->
+
+<!--
+<div class="container">
+    <h2>Should we take place in it?</h2>
+    <h3>Agree: {{ agreed }}, Disagree: {{ disagreed }}</h3>
+    <app-new *ngFor="let voter of voters" [Name]="voter" (voted)="onVoted($event)"></app-new>
+</div>
+-->
+
+<!--本地变量的方法使父组件可以用子组件
+<div class="container">
+    <h3>Countdown to liftoff (via local variable)</h3>
+    <button (click)="timer.start()">Start</button>
+    <button (click)="timer.stop()">stop</button>
+    <div class="seconds">{{ timer.seconds }}</div>
+    //采用将子组件传入父组件，然后用本地变量代替子组件就可以在副组件中引用子组件
+    <app-new #timer></app-new>
+</div>
+-->
+
+<div class="container">
+    <h3>Countdown to liftoff (via local variable)</h3>
+    <button (click)="start()">Start</button>
+    <button (click)="stop()">stop</button>
+    <div class="seconds">{{ seconds() }}</div>
+    <app-new ></app-new>
 </div>
